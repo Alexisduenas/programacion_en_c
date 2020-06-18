@@ -1,0 +1,112 @@
+/*
+	Programa: 20FuncionesDeMatematicas.h
+	Autor: Yehoshuah Alexis Dueñas Contreras
+	Fecha: 22/04/2020
+	Objetivo: Mostrar algunas funciones de matematicas en C.
+*/
+
+//Bibliotecas
+#define PI 3.14159
+#include <math.h>
+
+//Prototipos
+void FuncionAcos();
+void FuncionSin();
+void FuncionPow();
+void FuncionSqrt();
+void FuncionExp();
+
+//funciones
+void FuncionAcos(){
+	
+	double fNum, fRadian, fNum2;
+	
+	system("cls");
+	
+	printf("Funci%cn acos\n", 162);
+	printf("Ingrese un n%cmero con punto decimal entre el 1 y el -1\n", 163);
+	fflush(stdin);
+	scanf("%lf", &fNum);
+	
+	fRadian = acos(fNum);
+	fNum2 = fRadian * (180.0/PI);
+	
+	if(fNum <= 1 && fNum >= -1){
+	
+	printf("El coseno de %0.4lf es %0.4lf en radianes\n", fNum, fRadian);
+	printf("El coseno de %0.4lf es %0.4lf en numero\n", fNum, fNum2);
+	
+}else{
+
+	printf("El n%cmero que ingreso no es valido por favor asegurece de ingresar un numero ente el 1 y -1\n", 163);
+}
+	system("pause");
+	
+}
+
+void FuncionSin(){
+	
+	double fNum, fResultado;
+	
+	system("cls");
+	
+	printf("Funci%cn sin\n", 163);
+	printf("Introduce un n%cmero\n", 163);
+	fflush(stdin);
+	scanf("%lf", &fNum);
+	fResultado = sin(fNum*PI/180);
+	
+	printf("El resultado es: %.6lf\n", fResultado);
+	system("pause");
+		
+}
+void FuncionPow(){
+	
+	double fNum, fExponente;
+	
+	system("cls");
+	
+	printf("Funci%cn pow", 162);
+	printf("Introduce un N%cmero que desea elevar", 163);
+	fflush(stdin);
+	scanf("%lf", &fNum);
+	
+	printf("Introduce un n%cmero que sera el exponente", 163);
+	scanf("%lf", &fExponente);
+	
+	printf("El resultado es: %0.2lf",pow(fNum, fExponente));
+	
+	system("pause");
+	
+}
+void FuncionSqrt(){
+	
+	int eNum;
+    float fResultado;
+    
+    printf("Funci%cn sqrt", 162);
+    printf(" Ingrese un numero: \n");
+    fflush(stdin);
+    scanf("%d",&eNum);
+    
+    fResultado = sqrt(eNum);
+    
+    printf("Raiz cuadrada: %f\n",fResultado);
+    
+	system("pause");
+}
+
+void FuncionExp(){
+	
+	float fNum;
+	system("cls");
+	
+	printf("Funci%n exp", 162);
+	printf("ingrese un numero: ");
+	fflush(stdin);
+	scanf("%f", &fNum);
+	
+	printf("El valor exponencial de: %f es: %f\n", fNum, exp(fNum));
+	system("pause");
+
+}
