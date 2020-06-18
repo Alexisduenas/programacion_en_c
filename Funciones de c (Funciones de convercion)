@@ -1,0 +1,147 @@
+/*
+	Programa: 20FuncionesDeConversion.h           
+	Autor: Yehoshuah Alexis Dueñas Contreras
+	Fecha: 23/04/2020
+	Objetivo: mostrar algunas funciones de conversion en C                                        
+*/
+
+ //Bibliotecas
+ #define MAX 20
+ #define MAX1 20
+ #define MAX2 20
+ #define MAX3 20
+ #define PI 3.14159
+ 
+ //prototipos
+void FuncionAtof();
+void FuncionAtoi();
+void FuncionItoa();
+void FuncionExit();
+void FuncionRand();
+void FuncionAbs();
+void FuncionAbort();
+void MenuConversion();
+
+//funciones
+void FuncionAtof(){
+	
+	char sCadena[MAX];
+	float fNum;
+	
+	system("cls");
+	
+	printf("Funci%cn Atof\n", 162);
+	printf("ingrese un n%cmero con punto decimal: ", 163);
+	fflush(stdin);
+	scanf("%s", &sCadena);
+	
+	fNum = atof(sCadena);
+	printf("el n%cmero es: %f\n", 163, fNum);
+	system("pause");
+}
+
+void FuncionAtoi(){
+	
+	char sCadena[MAX];
+	int eNum;
+	
+	system("cls");
+	
+	printf("Funci%cn Itoa\n", 162);
+	printf("ingrese un n%cmero entero: ", 163);
+	fflush(stdin);
+	scanf("%d", &eNum);
+	
+	itoa (eNum, sCadena, 10);
+	
+	printf("el n%cmero es: %s\n", 163, sCadena);
+	
+	system("pause");
+	
+}
+
+void FuncionItoa(){
+	
+	char sCadena[MAX];
+	int eNum;
+	
+	system("cls");
+	
+	printf("Funci%cn Itoa\n", 162);
+	printf("ingrese un n%cmero sin punto decimal: ", 163);
+	fflush(stdin);
+	scanf("%d", &eNum);
+	
+	itoa (eNum, sCadena, 10);
+	
+	printf("el n%cmero es: %s\n", 163, sCadena);
+	
+	system("pause");
+}
+
+void FuncionExit(){
+	
+	char sCadena[MAX];
+	char sCadena2[MAX1];
+	char sCadena3[MAX2];
+	
+	system("cls");
+	
+	printf("Funci%cn Exit\n", 162);
+	
+	printf("Ingrese la primer palabra\n");
+	fflush(stdin);
+	gets(sCadena);
+	puts(sCadena);
+	printf("Ingrese la segunda palabra\n");
+	gets(sCadena2);
+	puts(sCadena2);
+	printf("Ingrese la tercer palabra\n");
+	gets(sCadena3);
+	exit(0);
+	puts(sCadena3);	
+	system("pause");
+		
+}
+
+void FuncionRand(){
+	
+	int eNum;
+	
+	system("cls");
+	
+	printf("Funci%cn Rand\n", 162);
+	
+	eNum = rand() %10 + 1;
+	
+	printf("el n%cmero random generado es : %d", 163, eNum);
+	system("\npause");
+	
+}
+
+void FuncionAbs(){
+	
+	float fNum;
+	int eNum;
+	
+	system("cls");
+	
+	printf("Funci%cn Abs\n", 162);
+	printf("ingrese un n%cmero con punto decimal: \n", 163);
+	fflush(stdin);
+	scanf("%f", &fNum);
+	
+	eNum = abs(fNum);
+	printf("el valor absoluto del n%Cmero es: %d\n", 163, eNum);
+	
+	system("pause");
+}
+
+void FuncionAbort(){
+	
+	system("cls");
+	
+	printf("Funci%cn Abort\n", 162);
+	
+	abort();
+}
