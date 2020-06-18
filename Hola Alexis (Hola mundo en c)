@@ -1,0 +1,18 @@
+/*
+	Programa: 01Saludo.c
+	Autor: Yehoshuah Alexis Dueñas Contreras
+	Fecha: 06/03/2020
+	Objetivo: Escribir un programa que te salude por tu nombre.
+*/
+//Bibliotecas
+#include <stdio.h>
+
+//programa principal
+int main(){
+	//para poner acento es "%c", 130 (codigo askii)(la letra en la tabla)
+	printf("Hola Alexis");
+	
+	getchar();
+	
+	return 0;
+}	
