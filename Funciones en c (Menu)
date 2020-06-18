@@ -1,0 +1,242 @@
+/*
+	Programa: 20FuncionesInternas.c
+	Autor: Yehoshuah Alexis Dueñas Contreras
+	Fecha: 17/abril/2020
+	Objetivo: Mostrar algunas funciones internas de c.
+*/
+
+//Bibliotecas
+#include <stdio.h>
+#include <stdlib.h>
+#include "20FuncionesDeCaracter.h"
+#include "20FuncionesDeMatematicas.h"
+#include "20FuncionesEntradaSalida.h"
+#include "20FuncionesDeConversion.h"
+#include "20FuncionesDeCadena.h"
+
+//Prototipos
+void MenuCaracter();
+void MenuMatematicas();
+void MenuES();
+void MenuConversion();
+void MenuCadena();
+
+//Función principal
+int main(){
+	int eOpcion;
+	
+	
+	
+	do{
+		system("cls");
+		
+		printf("Este programa nos muestra algunas funciones internas\n\n");
+		
+		printf("1. Funciones de caracter\n2. Funciones matem%cticas\n3. Funciones de E/S\n4. Funciones de conversi%cn de datos\n5. Funciones de cadena\n6. Salir\n\n", 160, 162);
+		printf("Ingrese una opci%cn: ", 162);
+		scanf("%d", &eOpcion);
+		
+		switch(eOpcion){
+			case 1: MenuCaracter();
+				break;
+			case 2: MenuMatematicas();
+				break;
+			case 3: MenuES();
+				break;
+			case 4: MenuConversion();
+				break;
+			case 5: MenuCadena();
+				break;
+			case 6: printf("Adi%cs", 162);
+				break;
+				
+		}
+		
+		getchar();
+		
+	}while(eOpcion != 6);
+	
+	return 0;
+}
+
+void MenuCaracter(){
+		
+	int eOpc;
+	
+	do{
+		system("cls");
+		
+		printf("Men%c de funciones de car%ccter\n", 163, 160);
+		
+		printf("1. isalpha\n2. isdigit\n3. tolower\n4. toupper\n5. iscntrl\n6. Regresar\n");
+		printf("Escoja una opcion: ");
+		scanf("%d", &eOpc);
+		
+		switch(eOpc){
+			case 1: FuncionIsalpha();
+				break;
+			case 2: FuncionIsdigit();
+				break;
+			case 3: FuncionTolower();
+				break;
+			case 4: FuncionToupper();
+				break;
+			case 5: FuncionIscntrl();
+				break;
+			case 6: printf("Regresando a funci%cn principal", 162);
+				break;
+			default: printf("La opci%cn ingresada no es v%clida", 162, 160);
+				break;
+		}
+		
+	}while(eOpc != 6);
+	
+	return;
+}
+void MenuMatematicas(){
+	
+	int eOpc;
+	
+	do{
+		system("cls");
+		
+		printf("Men%c de funciones de matematicas\n", 163);
+		
+		printf("1. acos\n2. sin\n3. pow\n4. sqrt\n5. exp\n6. Regresar\n");
+		printf("Escoja una opcion: ");
+		scanf("%d", &eOpc);
+		
+		switch(eOpc){
+			case 1: FuncionAcos();
+				break;
+			case 2: FuncionSin();
+				break;
+			case 3: FuncionPow();
+				break;
+			case 4: FuncionSqrt();
+				break;
+			case 5: FuncionExp();
+				break;
+			case 6: printf("Regresando a funci%cn principal", 162);
+				break;
+			default: printf("La opci%cn ingresada no es v%clida", 162, 160);
+				break;
+		}
+		
+	}while(eOpc != 6);
+	
+	return;	
+}
+void MenuES(){
+		
+	int eOpc;
+	
+	do{
+		system("cls");
+		
+		printf("Men%c de funciones de entrada y salida\n", 163);
+		
+		printf("1. printf\n2. scanf\n3. gets\n4. puts\n5. Regresar\n");
+		printf("Escoja una opcion: ");
+		scanf("%d", &eOpc);
+		
+		switch(eOpc){
+			case 1: FuncionPrintf();
+				break;
+			case 2: FuncionScanf();
+				break;
+			case 3: FuncionGets();
+				break;
+			case 4: FuncionPuts();
+				break;
+			case 5: printf("Regresando a funci%cn principal", 162);
+				break;
+			default: printf("La opci%cn ingresada no es v%clida", 162, 160);
+				break;
+		}
+		
+	}while(eOpc != 5);
+	
+	return;
+
+	
+}
+void MenuConversion(){
+
+	int eOpc;
+	
+	do{
+		
+		system("cls");
+		
+		printf("Menú de funciones de Conversi%cn\n", 162);
+		printf("1. atof\n2. atoi\n3. itoa\n4. exit\n5. rand\n6. abs\n7. abort\n8. Regresar");
+		printf("\nSelecciona una opci%cn: ", 162);
+		scanf("%d", &eOpc);
+		
+		switch(eOpc){
+			
+			case 1: FuncionAtof();
+						break;
+			case 2: FuncionAtoi();
+						break;
+			case 3: FuncionItoa();
+						break;
+			case 4: FuncionExit();
+						break;
+			case 5: FuncionRand();
+						break;
+			case 6: FuncionAbs();
+						break;
+			case 7: FuncionAbort();
+						break;
+			case 8: printf("Regresando a funci%cn principal", 162);
+						break;
+			default: printf("La opci%cn ingresada no es v%clida", 162, 160);
+						break;			
+			
+		}
+		
+	}while(eOpc != 8);
+	
+
+
+	
+}
+void MenuCadena(){
+	
+		int eOpc;
+	
+	do{
+		
+		system("cls");
+		
+		printf("Menú de funciones de cadena\n");
+		printf("1. strlen\n2. strcpy\n3. strcat\n4. strcmp\n5. strchr\n6. strstr\n7. Regresar");
+		printf("\nSelecciona una opci%cn: ", 162);
+		scanf("%d", &eOpc);
+		
+		switch(eOpc){
+			
+			case 1: FuncionStrlen();
+						break;
+			case 2: FuncionStrcpy();
+						break;
+			case 3: FuncionStrcat();
+						break;
+			case 4: FuncionStrcmp();
+						break;
+			case 5: FuncionStrchr();
+						break;
+			case 6: FuncionStrstr();
+						break;
+			case 7: printf("Regresando a funci%cn principal", 162);
+						break;
+			case 8: default: printf("La opci%cn ingresada no es v%clida", 162, 160);
+						break;
+						
+						
+		}
+	}while(eOpc != 7);
+}
+
