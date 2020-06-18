@@ -1,0 +1,94 @@
+/*
+	Programa: 20FuncionesEntradaSalida.h                                                      
+	Autor: Yehoshuah Alexis Dueñas Contreras
+	Fecha: 23/04/2020
+	Objetivo: mostrar funciones de enterada y salida C                                        
+*/
+
+//constantes
+#define MAX 20
+
+//prototipos
+void FuncionPrintf();
+void FuncionScanf();
+void FuncionGets();
+void FuncionPuts();
+
+//funciones
+void FuncionPrintf(){
+	
+	int eNumero;
+	
+	system("cls");
+	
+	printf("Funci%cn printf\n", 162);
+	
+	printf("ingrese un n%cmero: ", 163);
+	fflush(stdin);
+	scanf("%d", &eNumero);
+	
+	printf("su n%cmero es: %d \n",163, eNumero);
+	
+	system("pause");
+	
+}
+
+void FuncionScanf(){
+	
+	int eNumero;
+	
+	system("cls");
+	
+	printf("Funci%cn scanf\n", 162);
+	
+	printf("ingrese un n%cmero: \n", 163);
+	fflush(stdin);
+	scanf("%d", &eNumero);
+	
+	printf("El n%cmero que guardo con scanf es: %d \n", 163, eNumero);
+	
+	system("pause");
+	
+	
+}
+
+void FuncionGets(){
+	
+	char sCadena[MAX];
+	
+	system ("cls");
+	
+	printf("Funci%cn Gets\n", 162);
+	
+	printf("ingrese una palabra de maximo 20 caracteres: \n");
+	fflush(stdin);
+	gets(sCadena);
+	
+	
+	puts ("la palabra es: ");
+	puts (sCadena);
+	
+	system("pause");
+	
+	
+}
+
+void FuncionPuts(){
+	
+	char sCadena[MAX];
+	
+	system ("cls");
+	
+	printf("Funci%cn puts\n", 162);
+	
+	printf("ingrese una palabra de maximo 20 caracteres: ");
+	fflush(stdin);
+	scanf("%s", &sCadena);
+	puts("frase introducida\n ");
+	
+	printf("la palabra es: \n");
+	puts(sCadena);
+	
+	system("pause");
+	
+}
