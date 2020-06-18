@@ -1,0 +1,18 @@
+/*
+	Programa: 03Suma.c
+	Autor: Yehoshuah Alexis Dueñas contreras
+	Fecha 06/02/2020
+	Objetivo: Crear un programa que muestre:
+	5 + 6 = y el resultado de la operación.
+*/
+
+//Bibliotecas
+#include <stdio.h>
+int main (){
+		
+		printf("Este programa suma 5 + 6\n");
+		printf("5 + 6 =%d", 5 + 6);
+		
+		getchar();
+		return 0;
+}
