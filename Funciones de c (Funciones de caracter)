@@ -1,0 +1,122 @@
+/*
+	Programa: 20FuncionesDeCaracter.h
+	Autor: Yehoshuah Alexis Dueñas Contreras
+	Fecha: 06/02/2020
+	Objetivo: Mostrar algunas funciones de manejo de caracter en C.
+*/
+
+//Bibliotecas
+#include <ctype.h>
+
+//Prototipos
+void FuncionIsalpha();
+void FuncionIsdigit();
+void FuncionTolower();
+void FuncionToupper();
+void FuncionIscntrl();
+
+
+void FuncionIsalpha(){
+	
+	char cCaracter;
+	
+	system("cls");
+	
+	printf("Funci%cn isalpha\n", 162);
+	printf("Ingrese un caracter: ");
+	fflush(stdin);
+	cCaracter = getchar();
+	
+	if(isalpha(cCaracter)){
+		printf("El caracter %c es alfab%ctico\n", cCaracter, 130);
+		
+	}else{
+		printf("El caracter %c no es alfab%ctico\n", cCaracter, 130);
+		
+	}
+	
+	system("pause");
+}
+void FuncionIsdigit(){
+	
+	char cCaracter;
+	
+	system("cls");
+	
+	printf("Funci%cn isdigit\n",162);
+	printf("Ingrese un caracter: \n");
+	fflush(stdin);
+	cCaracter = getchar();
+	
+	
+	if(isdigit(cCaracter)){
+		printf("El caracter %c no es alfab%ctico\n", cCaracter, 130);
+		
+	}else{
+		printf("El caracter %c es alfb%ctico\n", cCaracter, 130);
+		
+	}
+	
+	system("pause");
+}
+void FuncionTolower(){
+	
+	char cCaracter;
+	
+	system("cls");
+	
+	printf("Funci%cn tolower\n",162);
+	printf("Ingrese un caracter: \n");
+	fflush(stdin);
+	
+	cCaracter = getchar();
+	
+	cCaracter = tolower(cCaracter);
+	
+	printf("Su letra es: %c\n", cCaracter);
+	
+	system("pause");	
+}
+void FuncionToupper(){
+	
+	char cCaracter;
+	
+	system("cls");
+	
+	printf("Funci%cn toupper\n",162);
+	printf("Ingrese un caracter: \n");
+	fflush(stdin);
+	
+	cCaracter = getchar();
+	
+	cCaracter = toupper(cCaracter);
+	
+	printf("Su letra es: %c\n", cCaracter);
+	
+	system("pause");
+	
+}
+void FuncionIscntrl(){
+	
+	char cCaracter;
+	
+	system("cls");
+	
+	printf("Funci%cn Iscntrl\n", 162);
+	printf("Ingrese un caracter: ");
+	fflush(stdin);
+	cCaracter = getchar();
+	
+	if(iscntrl(cCaracter)){
+		printf("El caracter %c es caracter de control\n", cCaracter, 130);
+		
+	}else{
+		printf("El caracter %c no es caracter de control\n", cCaracter, 130);
+		
+	}
+	
+	system("pause");	
+	}
+	
+			
+
