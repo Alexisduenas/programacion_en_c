@@ -1,0 +1,563 @@
+/*
+	Programa: Registro.c
+	Autor: Yehoshuah Alexis Dueñas contreras
+	Fecha 06/02/2020
+	Objetivo: Crear un programa registre alumnos, enliste y pueda borrarlos.
+*/
+
+//Biblioteca
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <locale.h>
+
+//Constantes
+#define MAX_ALUMNOS 30
+#define MAX_MATERIAS 6
+#define MAX_TELEFONOS 3
+
+//Tipos
+typedef char TcCadena[30];
+
+typedef struct {
+	int eDia, eMes, eAnio;
+} TrFecha;
+
+typedef struct {
+	TcCadena sMateria;
+	float fCalificacion;
+} TrMateria;
+
+typedef struct {
+	int eId;
+	TcCadena sNombre, sApellidoPaterno, sApellidoMaterno, sMatricula, sDomicilio;
+	TrFecha rFechaNacimiento;
+	TcCadena aTelefonos[MAX_TELEFONOS];
+	TrMateria aMaterias[MAX_MATERIAS];
+} TrAlumno;
+
+typedef TrAlumno TaAlumnos[MAX_ALUMNOS];
+
+//Prototipos
+void AltaAlumnos(TaAlumnos, int *);
+TrAlumno LeerAlumno();
+void InsertarAlumno(TaAlumnos, int *, TrAlumno);
+int BuscarAlumnoPorNombre(TaAlumnos, int, TcCadena, TcCadena, TcCadena);
+void BajaAlumno(TaAlumnos, int *);
+void MostrarDatosAlumno(TaAlumnos, int, int);
+void BorrarAlumno(TaAlumnos, int*, int);
+int BuscarAlumnoPorId(TaAlumnos, int, int);
+void CambioAlumno(TaAlumnos, int);
+void ModificarDatosAlumno(TaAlumnos, int, int);
+void ListarAlumnos(TaAlumnos, int);
+
+int main() {
+	
+	TaAlumnos aAlumnos;
+	int eTotal = -1, eOpcion, eId;
+	TcCadena sNombre, sApellidoPaterno, sApellidoMaterno;
+	TrAlumno rAlumno;
+	setlocale(LC_CTYPE, "spanish");
+		do{
+	
+		system("cls");
+		printf("Arreglo de alumnos\n");
+		printf("1. Alta de alumno\n2. Baja de alumno\n3. Modificar alumno\n4. Mostrar alumno\n5. Listar alumno\n6. Salir\n");
+		printf("Seleccione una opcion: ");
+		fflush(stdin);
+		scanf("%d", &eOpcion);
+		
+		switch(eOpcion){
+			
+			case 1: AltaAlumnos(aAlumnos, &eTotal);
+						break;
+			case 2:	BajaAlumno(aAlumnos, &eTotal);
+						break; 
+			
+			case 3:	 CambioAlumno(aAlumnos, eTotal);
+						break;
+		
+			case 4: printf("\ningresa el ID del alumno que quiere mostrar: ");
+					fflush(stdin);
+					scanf("%d", &eId);
+					
+					MostrarDatosAlumno(aAlumnos, eTotal, eId); 
+						break;
+			
+			case 5: ListarAlumnos(aAlumnos, eTotal);
+						break; 
+			
+			case 6:	printf("\nAdios\n");
+						break;
+						
+			default : printf("\nIngrese una opción valida\n");
+						break;
+		}
+		
+	}while ( eOpcion != 6);
+	
+	return 0;
+	
+}
+
+void AltaAlumnos(TaAlumnos aAlumnos, int *eTotal) {
+	
+	TrAlumno rAlumno;
+	
+	rAlumno = LeerAlumno();
+	InsertarAlumno(aAlumnos, eTotal, rAlumno);
+}
+TrAlumno LeerAlumno() {
+	
+	TrAlumno rAlumno;
+	int eMateria, eTelefono;
+	
+	system("cls");
+	printf("\nAlta de alumno.");
+	printf("\nIngrese los siguientes datos del alumno:");
+	printf("\nApellido paterno: ");
+	fflush(stdin);
+	gets(rAlumno.sApellidoPaterno);
+	printf("Apellido materno: ");
+	fflush(stdin);
+	gets(rAlumno.sApellidoMaterno);
+	printf("Nombre: ");
+	fflush(stdin);
+	gets(rAlumno.sNombre);
+	printf("Domicilio: ");
+	fflush(stdin);
+	gets(rAlumno.sDomicilio);
+	printf("Numero de matricula: ");
+	fflush(stdin);
+	gets(rAlumno.sMatricula);
+	printf("Fecha de nacimiento");
+	printf("\nDia: ");
+	fflush(stdin);
+	scanf("%d", &rAlumno.rFechaNacimiento.eDia);
+	printf("Mes: ");
+	fflush(stdin);
+	scanf("%d", &rAlumno.rFechaNacimiento.eMes);
+	printf("Año: ");
+	fflush(stdin);
+	scanf("%d", &rAlumno.rFechaNacimiento.eAnio);
+	
+	for (eTelefono = 0; eTelefono < MAX_TELEFONOS; eTelefono++) {
+		
+		printf("Teléfono %d: ", eTelefono + 1);
+		scanf("%d", &rAlumno.aTelefonos[eTelefono]);
+		
+	}
+	
+	for (eMateria = 0; eMateria < MAX_MATERIAS; eMateria++) {
+		
+		printf("Materia %d: ", eMateria + 1);
+		gets(rAlumno.aMaterias[eMateria].sMateria);
+		
+		printf("Calificación %d: ", eMateria + 1);
+		scanf("%f", &rAlumno.aMaterias[eMateria].fCalificacion);
+		
+	}
+	
+	return rAlumno;
+}
+void InsertarAlumno(TaAlumnos aAlumnos, int *eTotal, TrAlumno rAlumno) {
+	
+	int ePos, eRecorre;
+	
+	if(*eTotal == MAX_ALUMNOS - 1){
+		
+		printf("No hay espacios en el arreglo\n");
+		
+	} else{
+		
+		if(*eTotal == -1 && strcmp(rAlumno.sApellidoPaterno, aAlumnos[*eTotal].sApellidoPaterno) > 0 && strcmp(rAlumno.sApellidoMaterno, aAlumnos[*eTotal].sApellidoMaterno) > 0 && strcmp(rAlumno.sNombre, aAlumnos[*eTotal].sNombre) > 0){
+			
+			(*eTotal) ++;
+			rAlumno.eId = *eTotal;
+			aAlumnos[*eTotal] = rAlumno;
+			
+		} else {
+			
+			ePos = BuscarAlumnoPorNombre(aAlumnos, *eTotal, rAlumno.sApellidoPaterno, rAlumno.sApellidoMaterno, rAlumno.sNombre);
+			if(ePos != -1 ){
+			
+				printf("El alumno %s %s %s ya está registrado\n", rAlumno.sApellidoPaterno, rAlumno.sApellidoMaterno, rAlumno.sNombre);
+			
+			} else {
+				
+				eRecorre = *eTotal;
+				while(eRecorre > 0 && rAlumno.sApellidoPaterno, aAlumnos[*eTotal].sApellidoPaterno < 0 && strcmp(rAlumno.sApellidoMaterno, aAlumnos[*eTotal].sApellidoMaterno) < 0 && strcmp(rAlumno.sNombre, aAlumnos[*eTotal].sNombre) < 0){
+					
+					aAlumnos[eRecorre + 1] = aAlumnos[eRecorre];
+					eRecorre --;
+					
+				}
+			
+				(*eTotal) ++;
+				rAlumno.eId = *eTotal;
+				aAlumnos[eRecorre + 1] = rAlumno;
+			
+			}
+		}
+		
+	}
+}
+
+int BuscarAlumnoPorNombre(TaAlumnos aAlumnos, int eTotal, TcCadena sApellidoPaterno, TcCadena sApellidoMaterno, TcCadena sNombre){
+	
+	int eMenor, eMedio, eMayor;
+	
+	if(eTotal == -1){
+		
+		return -1;
+		
+	} else {
+		
+		eMayor = eTotal;
+		eMenor = 0;
+		eMedio = eMayor / 2;
+		while(eMenor <= eMayor && (strcmp(aAlumnos[eMedio].sApellidoPaterno, sApellidoPaterno) != 0 || 
+			strcmp(aAlumnos[eMedio].sApellidoMaterno, sApellidoMaterno) != 0 ||
+			strcmp(aAlumnos[eMedio].sNombre, sNombre) != 0)){
+			
+			if(strcmp(aAlumnos[eMedio].sApellidoPaterno, sApellidoPaterno) < 0 ||
+					strcmp(aAlumnos[eMedio].sApellidoMaterno, sApellidoMaterno) < 0 ||
+					 strcmp(aAlumnos[eMedio].sNombre, sNombre) < 0){
+				
+				eMenor = eMedio + 1;
+				
+			} else {
+				
+				eMayor = eMedio - 1;
+				
+			}
+			
+			
+			eMedio = (eMayor + eMenor) / 2;
+		}
+	
+		if(eMenor > eMayor){
+			
+			return 0;
+			
+		} else {
+			
+			
+			return eMedio;
+		}
+	
+	}
+}
+
+void BajaAlumno(TaAlumnos aAlumnos, int *eTotal){
+	
+	int eId = -1;
+	TcCadena sApPaterno, sApMaterno, sNombre;
+	char cRespuesta;
+	
+	do{
+		
+		printf("\nIngrese ID del alumno a borrar[eId = 0 Borrar nombre por completo]: ");
+		scanf("%d", &eId);
+		
+		if(eId = 0){
+			
+			printf("Ingrese nombre del alumno: ");
+			fflush(stdin);
+			gets(sNombre);
+			
+			printf("\nIngrese apellido paterno del alumno: ");
+			fflush(stdin);
+			gets(sApPaterno);
+			
+			printf("\nIngrese apellido materno del alumno: ");
+			fflush(stdin);
+			gets(sApMaterno);
+			
+			eId = aAlumnos[BuscarAlumnoPorNombre(aAlumnos, *eTotal, sApPaterno, sApMaterno, sNombre)].eId;
+			
+		}else{
+			
+			eId --;
+			
+		}
+		
+		MostrarDatosAlumno(aAlumnos, *eTotal, eId);
+		
+		printf("Desea dar de baja al alumno?[S/N]: ");
+		scanf("%c", &cRespuesta);
+		
+		if(cRespuesta = 'S' || cRespuesta = 's'){
+			BorrarAlumno(aAlumnos, eTotal, eId);
+			
+		} else {
+			
+			printf("No se ha borrado el registro\n");
+			system("pause");
+			
+		}
+		
+	} while(eId != -1 || strcmp(sNombre, " ") != 0 || (sApPaterno, " ") != 0 || (sApMaterno, "") != 0);
+}
+
+void MostrarDatosAlumno(TaAlumnos aAlumnos, int eTotal, int eId){
+
+	int ePos, eTel, eMateria;
+	
+	if(eTotal = -1){
+		
+		printf("No hay registros de alumnos\n");
+		
+	} else {
+		
+		ePos = BuscarAlumnoPorId(aAlumnos, eTotal, eId);
+		if(ePos = 0){
+			
+			printf("No existe el alumno: %d", eId);
+			
+		} else {
+			
+			printf("Los datos del alumno: %d son:\n", eId);
+			printf("Nombre: %s %s %s\n", aAlumnos[ePos].sApellidoPaterno, aAlumnos[ePos].sApellidoMaterno, aAlumnos[ePos].sNombre);
+			printf("Domicilio: %s\n", aAlumnos[ePos].sDomicilio);
+			printf("Matricula: %s\n", aAlumnos[ePos].sMatricula);
+			printf("Fecha de nacimiento: %d / %d / %d", aAlumnos[ePos].rFechaNacimiento.eDia,aAlumnos[ePos].rFechaNacimiento.eMes, aAlumnos[ePos].rFechaNacimiento.eAnio);
+			printf("\nTelefonos: ");
+			for(eTel = 1; eTel = MAX_TELEFONOS; eTel++){
+				
+				printf("Telefono %d: %d", aAlumnos[ePos].aTelefonos[eTel]);
+				
+			}
+			printf("Calificaciones: %s\n");
+			for(eMateria = 1; eMateria = MAX_MATERIAS; eMateria++){
+				
+				printf("Materia %d: %s - %f", eMateria, aAlumnos[ePos].aMaterias[eMateria].sMateria, aAlumnos[ePos].aMaterias[eMateria].fCalificacion);
+				
+			}
+		}
+	}
+}
+
+void BorrarAlumno(TaAlumnos aAlumnos, int *eTotal, int eId){
+	
+	int ePos, eRecorre;
+	
+	if(*eTotal == -1){
+		
+		printf("\nNo hay alumnos registrados\n");
+		
+	} else {
+		
+		ePos = BuscarAlumnoPorId(aAlumnos, *eTotal, eId);
+		if(ePos = 0 ){
+			
+			printf("El alumno %d no existe\n", eId);
+			
+		} else {
+			
+			for(eRecorre = ePos; eRecorre == (*eTotal) - 1; eRecorre++){
+				
+				aAlumnos[eRecorre] = aAlumnos[eRecorre + 1];
+				
+			}
+			
+			(*eTotal) --;
+			
+		}
+		
+	}
+	
+}
+
+int BuscarAlumnoPorId(TaAlumnos aAlumnos, int eTotal, int eId){
+	
+	int ePos;
+	
+	if(eTotal = -1){
+		
+		return -1;
+		
+	} else {
+		
+		ePos = 1;
+		while(ePos <= eTotal || aAlumnos[ePos].eId){
+			
+			ePos ++;
+			
+		}
+		
+		if(ePos > eTotal){
+			
+			return -1;
+			
+		} else {
+			
+			return ePos;
+			
+		}
+		
+	}
+	
+}
+
+void CambioAlumno(TaAlumnos aAlumnos, int eTotal){
+	
+	char cRespuesta;
+	int eId;
+	TcCadena sNombre, sApPaterno, sApMaterno;
+	
+	do{
+		
+		printf("\nIngrese ID  del alumno a borrar[ID = 0 Borrar nombre completo]: ");
+		fflush(stdin);
+		scanf("%d", &eId);
+		if(eId == -1){
+			
+			printf("\nIngrese nombre del alumno a modificar: ");
+			gets(sNombre);
+			
+			printf("\nIngerse apellido paterno del alumno a modificar: ");
+			gets(sApPaterno);
+			
+			printf("\nIngrese apellido materno del alumno a modificar: ");
+			gets(sApMaterno);
+			
+			eId = aAlumnos[BuscarAlumnoPorNombre(aAlumnos, eTotal, sApPaterno, sApMaterno, sNombre)].eId;
+			
+		}
+		
+		MostrarDatosAlumno(aAlumnos, eTotal, eId);
+		printf("Desea modificar el alumno[S/N] ");
+		scanf("%c", &cRespuesta);
+		
+		if(cRespuesta == 'S' ||  cRespuesta == 's'){
+			
+			ModificarDatosAlumno(aAlumnos, eTotal, eId);
+			
+		} else {
+			
+			printf("\nNo se ha modificado el registro");
+			
+		}
+	} while(eId != -1 && sNombre != "" && sApPaterno != "" && sApMaterno != "");
+}
+
+
+ModificarDatosAlumno(TaAlumnos aAlumnos, int eTotal, int eId){
+	
+	int ePos, eOpcion, eMateria, eTel;
+	
+	if ( eTotal == -1){
+		
+		printf("\nNo hay elementos\n");
+		
+	} else { 
+	
+		do{
+			
+			ePos = BuscarAlumnoPorId(aAlumnos, eTotal, eId);
+			
+			printf("\nDatos Alumno\n");
+			
+			printf("\n1. Domicilio\n2. Fecha de nacimiento\n3. Telefonos\n4. Calificaciones\n5. Salir\n");
+			
+			printf("\nSelecciona una opción: ");
+			fflush(stdin);
+			scanf("%d", &eOpcion);
+			
+			switch (eOpcion){
+				
+				case 1: printf("\nIngrese un nuevo domicilio: ");
+						gets(aAlumnos[ePos].sDomicilio);
+							break;
+				
+				case 2: printf("\nModificar la fecha de nacimiento: ");
+						
+						printf("\nDia de nacimiento: ");
+						scanf("%d", &aAlumnos[ePos].rFechaNacimiento.eDia);
+						
+						printf("\nMes de nacimiento: ");
+						scanf("%d", &aAlumnos[ePos].rFechaNacimiento.eMes);
+						
+						printf("\nAño de nacimiento: ");
+						scanf("%d", &aAlumnos[ePos].rFechaNacimiento.eAnio);
+						
+							break;
+							
+				case 3: printf("\nModificación de números de teléfono\n");
+						printf("\nIngrese que número de telefono quiere modificar: ");
+						fflush(stdin);
+						scanf("%d", &eTel);
+						
+						printf("\nIngreese el nuevo número de telefono: ");
+						fflush(stdin);
+						scanf("%d", &aAlumnos[ePos].aTelefonos[eTel]);
+						
+							break;
+							
+				case 4: printf("\nModificación de calificaciones\n");
+						printf("\nIngrese el número de de materia en la que se quiere hacer la modificación: ");
+						fflush(stdin);
+						scanf("%d", &eMateria);
+						
+						printf("\nIngrese la nueva calificación: ");
+						fflush(stdin);
+						scanf("%f", &aAlumnos[ePos].aMaterias[eMateria].fCalificacion);
+						
+							break;
+							
+				case 5: printf("\nRegresando al menú inicial\n");
+							break;
+				
+				default :	printf("\nError en la selección\n");
+								break;				
+			}
+			
+		printf("\nLos nuevos datos del alumno son: ");
+		MostrarDatosAlumno(aAlumnos, eTotal, eId);
+			
+		}while(eOpcion != 5);
+			
+	}
+	
+}
+
+void ListarAlumnos(TaAlumnos aAlumnos, int eTotal){
+
+    int ePos, eTelefono, eMateria;
+
+    int eContador;
+
+    if (eTotal == -1) {
+
+        printf("No hay datos.\n");
+
+    } else {
+
+        printf("Lista de alumnos ordenados por nombre\n");
+        printf("%3s %-30s %-12s %-9s F.NACIC. %-32s Calif", "ID", "Nombre", "Domicilio", "Matricula", ");
+
+        for (ePos = 0; ePos <= eTotal; ePos ++) {
+
+
+            printf("%3d %-10s %-10s %-10s %-12s %-9s %d/%d/%d ", aAlumnos[ePos].eId, 
+             aAlumnos[ePos].sApellidoPaterno, aAlumnos[ePos].sApellidoMaterno,
+              aAlumnos[ePos].sNombre, aAlumnos[ePos].sDomicilio,
+              aAlumnos[ePos].sMatricula, aAlumnos[ePos].rFechaNacimiento.eDia, 
+              aAlumnos[ePos].rFechaNacimiento.eMes, 
+              aAlumnos[ePos].rFechaNacimiento.eAnio); 
+
+            for (eTelefono = 0 ; eTelefono < MAX_TELEFONOS; eTelefono ++){
+
+                printf("%-10s", aAlumnos[ePos].aTelefonos[eTelefono]);
+            }
+
+            for (eMateria = 0; eMateria < MAX_MATERIAS; eMateria ++){
+
+                printf("%-4s %3.2f \n", aAlumnos[ePos].aMaterias[eMateria].sMateria, aAlumnos[ePos].aMaterias[eMateria].fCalificacion);
+            }
+        }
+    }
+    printf("Regresar al menú.");
+    system("Pause");
+} //ListarAlumnos
