@@ -1,0 +1,186 @@
+/* 
+	Programa: 20FuncionesDeCadena.h                                                                          
+	Autor: Yehoshuah Alexis Dueñas Contreras
+	Fecha: 23/04/2020
+	Objetivo: mostrar funciones de cadenas en C                                        
+*/
+
+ //Bibliotecas
+ #include <string.h>
+ #define MAX 30
+ 
+ //prototipos
+void FuncionStrlen();
+void FuncionStrcpy();
+void FuncionStrcat();
+void FuncionStrcmp();
+void FuncionStrchr();
+void FuncionStrstr();
+
+void FuncionStrlen(){
+	
+	char sCadena[MAX];
+	int eContador;
+	
+	system("cls");
+	
+	printf("Funci%cn strlen\n", 162);
+	printf("Ingrese una palabra\n");
+	fflush(stdin);
+	
+	gets(sCadena);
+	eContador = strlen(sCadena);
+	
+	printf("Su palabra: %s tiene %d caracteres\n", sCadena, eContador);
+	
+	system("pause");
+}
+
+void FuncionStrcpy(){
+	
+	char sCadena[MAX];
+	char sCadena2[20];
+	
+	system("cls");
+	
+	printf("Funci%n strcpy\n", 162);
+	printf("Ingrese una palabra: \n");
+	fflush(stdin);
+	
+	gets(sCadena);
+	
+	printf("Ingrese la segunda palabra\n");
+	gets(sCadena2);
+	
+	printf("La primer palabara es: %s\nLa segunda es: %s \n", sCadena, sCadena2);
+	
+	strcpy(sCadena, sCadena2);
+	
+	printf("Cadena copiada: %s en la primer cadena\n", sCadena);
+	
+	system("pause");
+}
+
+void FuncionStrcat(){
+	
+	char sCadena[MAX];
+	char sCadena2[20];
+	
+	system("cls");
+	
+	printf("Funci%on strcat\n", 162);
+	printf("Ingrese una palabra: \n");
+	fflush(stdin);
+	
+	gets(sCadena);
+	
+	
+	printf("Ingrese la segunda palabra\n");
+	gets(sCadena2);
+	
+	strcat(sCadena," ");
+	strcat(sCadena, sCadena2);
+	
+	printf("Cadena cotatenada: %s\n", sCadena);
+	
+	system("pause");
+	
+}
+
+void FuncionStrcmp(){
+	
+	char sCadena[MAX]; 
+	char sCadena2[MAX];
+	int eNum;
+	
+	system("cls");
+	
+	printf("Funci%cn strcmp\n", 162);
+	printf("ingrese la primera cadena: ");
+	fflush(stdin);
+	scanf("%s", &sCadena);
+	
+	printf("\ningrese la segunda cadena: ");
+	scanf("%s", &sCadena2);
+	
+	eNum = strcmp(sCadena, sCadena2);
+	
+	if(eNum == 0 ){
+		
+	printf("\nLas 2 cadenas son iguales\n");
+	
+	}else{
+		
+		if(eNum < 0){
+			
+		printf("\nla cadena 1 es < a la cadena 2\n");
+		
+		}else{
+			
+			printf("\nla cadena 1 es > a la cadena 2\n");
+		}
+	}		
+	system("pause");
+	
+}
+
+void FuncionStrchr(){
+	
+	char sCadena[MAX];
+	char sCaracter[MAX];
+	char cResultado;
+	
+	system("cls");
+	
+	printf("Funci%cn strchr\n", 162);
+	printf("ingrese una palabra: ");
+	fflush(stdin);
+	scanf("%s", &sCadena);
+	
+	printf("\ningrese la letra que quiere buscar: ");
+	scanf("%s", &sCadena);
+	
+	cResultado = strchr(sCadena, sCaracter);
+	
+	if (cResultado){
+	printf("la letra se encuentra en la cadena");
+	
+	}else{
+		
+		printf("la letra no se encontro en la cadena\n");
+	}
+	
+	system("pause");
+
+}
+
+void FuncionStrstr(){
+	
+	char sCadena[MAX];
+	char sCadena2[MAX];
+	int eNum;
+	
+	system("cls");
+	
+	printf("Funci%cn strstr\n", 162);
+	printf("ingrese una palabra: \n");
+	fflush(stdin);
+	gets(sCadena);
+	
+	printf("\ningrese la cadena que quieres buscar: ");
+	scanf("%s", &sCadena2);
+	
+	eNum = strstr(sCadena,sCadena2);
+	
+	if (eNum == 0){
+		
+	printf("no se ha encontrado en el texto");
+	
+	}else{
+		
+	printf("\nla cadena se encontro en el texto\n");
+	
+	}
+	
+	system("pause");
+}
